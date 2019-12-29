@@ -1,0 +1,188 @@
+1 : Tables in Manpower Management Database.
+mysql> use manpowerdatabase;
+Database changed
+mysql> show tables;
++----------------------------+
+| Tables_in_manpowerdatabase |
++----------------------------+
+| admin                      |
+| department                 |
+| employee                   |
+| job_history                |
+| location                   |
+| manager                    |
+| region                     |
++----------------------------+
+7 rows in set (0.07 sec)
+
+2 : Describing each and every table.
+a :
+mysql> describe admin
+    -> ;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Admin_Id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Admin_Name | varchar(45) | NO   |     | NULL    |                |
+| Address    | varchar(45) | NO   |     | NULL    |                |
+| Salary     | int(11)     | NO   |     | NULL    |                |
+| Region_RId | int(11)     | NO   | MUL | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.04 sec)
+3 : 
+mysql> describe department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dept_Id   | int(11)     | NO   | PRI | NULL    |       |
+| Dept_Name | varchar(45) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+4 :
+mysql> describe employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Emp_Id      | int(11)     | NO   | PRI | NULL    |       |
+| Emp_Name    | varchar(45) | NO   |     | NULL    |       |
+| Emp_Address | varchar(45) | NO   |     | NULL    |       |
+| Emp_Mail    | varchar(45) | NO   |     | NULL    |       |
+| Emp_Phone   | varchar(45) | NO   | PRI | NULL    |       |
+| Emp_Salary  | int(11)     | NO   |     | NULL    |       |
+| Manager_Id  | int(11)     | NO   | MUL | NULL    |       |
+| Loc_Id      | int(11)     | NO   | MUL | NULL    |       |
+| Dept_Id     | int(11)     | NO   | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+5 :
+mysql> describe job_history;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Emp_Id     | int(11)     | NO   | PRI | NULL    |       |
+| Start_Date | datetime    | NO   |     | NULL    |       |
+| End_Date   | datetime    | NO   |     | NULL    |       |
+| Job_Role   | varchar(45) | NO   |     | NULL    |       |
+| Loc_Id     | int(11)     | NO   | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+6 :
+
+mysql> describe location;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Loc_Id     | int(11)     | NO   | PRI | NULL    |       |
+| Loc_Name   | varchar(45) | NO   |     | NULL    |       |
+| Region_RId | int(11)     | NO   | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> describe manager;
++--------------------+-------------+------+-----+---------+----------------+
+| Field              | Type        | Null | Key | Default | Extra          |
++--------------------+-------------+------+-----+---------+----------------+
+| Manager_Id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Manager_Name       | varchar(45) | NO   |     | NULL    |                |
+| Address            | text        | NO   |     | NULL    |                |
+| Location_Loc_Id    | int(11)     | NO   | MUL | NULL    |                |
+| Salary             | int(11)     | NO   |     | NULL    |                |
+| Joined_Date        | datetime    | NO   |     | NULL    |                |
+| Department_Dept_Id | int(11)     | NO   | MUL | NULL    |                |
++--------------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> describe region;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| RId   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| RName | varchar(45) | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+
+7 : Fetching data from each and every table.
+
+mysql> select * from admin;
++----------+--------------------+----------------+--------+------------+
+| Admin_Id | Admin_Name         | Address        | Salary | Region_RId |
++----------+--------------------+----------------+--------+------------+
+|        1 | Ramesh Sen         | Kolkata        |  54000 |        123 |
+|        2 | Reshma Chakroborty | Panipath Nagar |  54000 |        234 |
+|        3 | Ayan Koyal         | Kodaikanala    |  60000 |        345 |
++----------+--------------------+----------------+--------+------------+
+3 rows in set (0.00 sec)
+
+8: mysql> select * from department;
++---------+--------------+
+| Dept_Id | Dept_Name    |
++---------+--------------+
+|    1000 | Android      |
+|    1005 | IOS          |
+|    2000 | IOT          |
+|    2005 | Desktop      |
+|    2010 | Web          |
+|    3000 | Data Science |
+|    3005 | Security     |
+|    3010 | AI           |
+|    4000 | HR           |
+|    4005 | Marketing    |
++---------+--------------+
+10 rows in set (0.00 sec)
+
+9 : mysql> select * from location;
++--------+--------------+------------+
+| Loc_Id | Loc_Name     | Region_RId |
++--------+--------------+------------+
+|    100 | Saltlake     |        123 |
+|    105 | Newtown      |        123 |
+|    200 | Lodhi Estate |        234 |
+|    205 | Chadni Chowk |        234 |
+|    300 | Vasant Nagar |        345 |
+|    305 | Mavalli      |        345 |
++--------+--------------+------------+
+6 rows in set (0.00 sec)
+
+10 : mysql> select * from manager;
++------------+--------------+----------+-----------------+--------+---------------------+--------------------+
+| Manager_Id | Manager_Name | Address  | Location_Loc_Id | Salary | Joined_Date         | Department_Dept_Id |
++------------+--------------+----------+-----------------+--------+---------------------+--------------------+
+|      10000 | Amlan Naskar | Birati   |             100 |  50000 | 2012-02-28 00:00:00 |               1000 |
+|      10005 | Amar Naskar  | Birati   |             100 |  52000 | 2011-01-18 00:00:00 |               1000 |
+|      20000 | Samir Naskar | Panipath |             100 |  52000 | 2019-02-02 00:00:00 |               1005 |
++------------+--------------+----------+-----------------+--------+---------------------+--------------------+
+3 rows in set (0.00 sec)
+11 : mysql> select * from region;
++-----+-------------+
+| RId | RName       |
++-----+-------------+
+| 123 | West Bengal |
+| 234 | Delhi       |
+| 345 | Bangalore   |
++-----+-------------+
+3 rows in set (0.00 sec)
+
+12 : Inserting data in some of the tables.
+--> mysql> insert into manager values(30000,'Shiba Das','Kolkata',100,60000,'2017-02-28',3000);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into employee values(001,'Saptorshe Das','Amtala Adarsha Pally','iamsaptorshe07@gmail.com','6290088603',80000,30000,100,3000);
+Query OK, 1 row affected (0.12 sec)
+
+13 : Performing joining operation :
+--> mysql> select admin.Admin_Name,admin.Address,region.RName from admin cross join region;
++--------------------+----------------+-------------+
+| Admin_Name         | Address        | RName       |
++--------------------+----------------+-------------+
+| Ramesh Sen         | Kolkata        | West Bengal |
+| Reshma Chakroborty | Panipath Nagar | West Bengal |
+| Ayan Koyal         | Kodaikanala    | West Bengal |
+| Ramesh Sen         | Kolkata        | Delhi       |
+| Reshma Chakroborty | Panipath Nagar | Delhi       |
+| Ayan Koyal         | Kodaikanala    | Delhi       |
+| Ramesh Sen         | Kolkata        | Bangalore   |
+| Reshma Chakroborty | Panipath Nagar | Bangalore   |
+| Ayan Koyal         | Kodaikanala    | Bangalore   |
++--------------------+----------------+-------------+
+9 rows in set (0.02 sec)
